@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    build: ./infra/mysql
+    image: household_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    ports:
+      - 3306:3306
+    volumes:
+      - ./infra/mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./data:/var/lib/mysql
+    container_name: household_account_book_db
+
+  web:
+    build: ./infra/php
+    image: household_web
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - ./app:/var/www/html
+      - ./infra/apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./infra/php/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - 80:80
+    container_name: household_account_book_web
