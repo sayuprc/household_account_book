@@ -13,7 +13,7 @@ class Controller
 
     protected function __construct()
     {
-        $this->notFoundPath = __DIR__ . '/..views/404.html';
+        $this->notFoundPath = __DIR__ . '/../views/404.html';
         $this->request = Request::getInstance();
     }
 
@@ -22,7 +22,7 @@ class Controller
 
     }
 
-    protected function View(string $viewName, array $params = [])
+    protected function View(string $viewName, array $data = [])
     {
         $filePath = sprintf("%s/../views/%s.php", __DIR__, $viewName);
 
