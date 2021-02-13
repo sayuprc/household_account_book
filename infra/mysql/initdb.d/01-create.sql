@@ -28,7 +28,10 @@ CREATE TABLE categories (
 
 CREATE TABLE receipts (
 	receipt_id bigint not null, 	-- レシートID
+  receipt_name varchar(256),    -- 名前
 	total_amount decimal(10, 2), 	-- 合計金額(税込み)
+  purchased_at datetime,        -- 購入日
+  created_at datetime,          -- 作成日
 	primary key(receipt_id)
 );
 
