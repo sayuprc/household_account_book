@@ -14,7 +14,7 @@ if (isset($_POST['receipt_id']) && isset($_POST['total_amount'])) {
     $status = $rp->create($params);
 
     if ($status) {
-        header('Location: create_details.php?receipt_id=' . $nextid);
+        header('Location: create_detail.php?receipt_id=' . $nextid);
     }
 }
 

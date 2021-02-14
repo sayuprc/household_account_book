@@ -33,6 +33,25 @@ class Receipt
 		return $receipts;
 	}
 
+    public function find($receiptId)
+    {
+        $receipt = [];
+
+        try {
+            $query = 'SELECT * FROM receipts WHERE receipt_id = :receipt_id';
+            $prepare = [ ':receipt_id' => $receiptId ];
+
+            $stmt = $this->dbh->prepare($query);
+            $stmt->execute($prepare);
+
+            $receipts = $stmt->fetchAll();
+        } catch (PDOException $e) {
+            $this->messages[] = '取得に失敗しました。' . $e->getMessage();
+        }
+
+		return $receipts[0];
+    }
+
     public function create($data)
     {
         $status = $this->validate($data);
@@ -50,11 +69,7 @@ class Receipt
         }
 
         foreach ($data as $key => $val) {
-            if ($key === 'purchased_at') {
-                $this->values[$key] = preg_replace("/-/", '/', $val);
-            } else {
-                $this->values[$key] = $val;
-            }
+            $this->values[$key] = $val;
         }
 
         return true;

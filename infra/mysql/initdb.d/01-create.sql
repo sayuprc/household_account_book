@@ -14,7 +14,7 @@ CREATE TABLE receipts_detail (
 	paymented_at datetime, 			-- 支払日
 	payment_type int, 					-- 支払い方法
 	payment_count int, 					-- 支払い回数
-	is_payed bit default 0, 		-- 支払いフラグ 0 => 未決済, 1 => 決済済み
+	is_payed int, 		          -- 支払いフラグ 0 => 未決済, 1 => 決済済み
 	category_id int, 						-- カテゴリID
 	memo text, 									-- 備考
 	primary key(receipt_id, serial)
